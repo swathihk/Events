@@ -1,0 +1,48 @@
+<h3>Listing events</h3>
+<p id="notice"><%= notice %></p>
+<table class="table table-bordered">
+  <tr>
+    <th>Event name</th>
+    <th>Description</th>
+    <th>Address</th>
+    <th>Event date</th>
+    <th>Last date</th>
+    <th>Amount</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @events.each do |event| %>
+  <tr>
+    <td><%= event.event_title %></td>
+    <td><%= event.description %></td>
+    <td><%= event.address %></td>
+    <td><%= event.event_date %></td>
+    <td><%= event.last_date %></td>
+    <td><%= event.amount %></td>
+    <% if user_signed_in? %>
+    <td><%= link_to 'Show', event %></td>
+    <!--<td><%#= link_to 'Edit', edit_event_path(event) %></td>
+    
+    <td><%#= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
+    <% event_check=check_user_regiser_for_event(event)%>
+    <% if event.event_date > Time.now.to_date%>
+    <% if event_check.nil? or event_check.blank?  %>
+    
+    <td><%= link_to 'Register For Event', attend_event_path(event) %></td>
+    <%else%>
+    <td><%= link_to 'Unregister For Event', unattend_event_path(event) %></td>
+    <%end%>
+    <%end%>
+    <td><%= link_to 'View All' , users_who_attend_event_event_path(event)%></td>
+    <%end%>
+
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+
+<%= link_to 'New Event', new_event_path %>
