@@ -8,13 +8,26 @@
 </head>
 <body>
 <div id="user_nav">
-  <% if user_signed_in? %>
-      Signed in as <%= current_user.email %>. Not you?
-      <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-  <% else %>
-      <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+  
+  <div class="navbar">
+  <div class="navbar-inner">
+    <%= link_to "Home", events_path,:class=>"brand" %>
+    <ul class="nav">
+      <% if user_signed_in? %>
+      
+      <li>Signed in as <%= current_user.email %>. Not you?</li><li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
+      <% else %>
+
+      <li> <%= link_to "Sign up", new_user_registration_path %> </li> 
+      <li><%= link_to "sign in", new_user_session_path %></li>
   <% end %>
+    </ul>
+  </div>
 </div>
+      
+      
+  
+     </div>
 
 <%= yield %>
 

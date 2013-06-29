@@ -15,27 +15,31 @@
 
 <% @events.each do |event| %>
   <tr>
-    <td><%= event.event_title %></td>
+    <td><%= event.event_title.capitalize %></td>
     <td><%= event.description %></td>
     <td><%= event.address %></td>
     <td><%= event.event_date %></td>
     <td><%= event.last_date %></td>
     <td><%= event.amount %></td>
     <% if user_signed_in? %>
-    <td><%= link_to 'Show', event %></td>
+    <td><%= link_to 'Show', event,:class=>"btn btn-link" %></td>
     <!--<td><%#= link_to 'Edit', edit_event_path(event) %></td>
     
     <td><%#= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
     <% event_check=check_user_regiser_for_event(event)%>
     <% if event.event_date > Time.now.to_date%>
+    <td>
     <% if event_check.nil? or event_check.blank?  %>
     
-    <td><%= link_to 'Register For Event', attend_event_path(event) %></td>
+    <%= link_to 'Register', attend_event_path(event),:class=>"btn btn-link" %>
     <%else%>
-    <td><%= link_to 'Unregister For Event', unattend_event_path(event) %></td>
+    <%= link_to 'Unregister', unattend_event_path(event),:class=>"btn btn-link" %>
     <%end%>
+    </td>
+    <%else%>
+    <td>Event Finished</td>
     <%end%>
-    <td><%= link_to 'View All' , users_who_attend_event_event_path(event)%></td>
+    <td><%= link_to 'User Who Attend Event' , users_who_attend_event_event_path(event),:class=>"btn btn-link"%></td>
     <%end%>
 
   </tr>
@@ -45,4 +49,4 @@
 <br />
 
 
-<%= link_to 'New Event', new_event_path %>
+<%= link_to 'New Event', new_event_path ,:class=>"btn btn-link"%>
